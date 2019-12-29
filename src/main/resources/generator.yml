@@ -1,0 +1,31 @@
+datasource:
+  username: root
+  password: 1234
+  url: jdbc:mysql://localhost:3306/lin12_blog?serverTimezone=GMT%2B8&characterEncoding=utf-8
+  driverClassName: com.mysql.cj.jdbc.Driver
+
+# 配置输出路径
+path:
+  entity: com.lin12.gengerator.pojo
+
+# 配置表明和类名
+tableConfig:
+  tables:
+    - table:
+        tableName: lin_user
+        ClassName: LinUser
+
+# 配置参数
+generatorConfig:
+  date: true
+  author: lin12
+  mybatis-plus: true
+  swagger: true
+
+# ftl预编译 模板内不需要的可以删除
+# PackageName 包路径
+# ImportPackageList 导包
+# ClassHeadRemark 表头备注 包含 作者和日期
+# ClassHeadAnnotation 表头注解  @TableName() 等 如果项目不需要表头注解 则模板内可以删除 否则 影响 自定义模板添加注解换行问题
+# ClassName 类名
+# PropertyList 所有属性
