@@ -11,4 +11,7 @@ public final class Constant {
     public static final String ENTITY = "entity";
     public static final String ENTITY_FTL = "Entity.ftl";
 
+    public static final String DAO = "dao";
+    public static final String DAO_FTL = "Dao.ftl";
+
 }

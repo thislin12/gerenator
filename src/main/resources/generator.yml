@@ -6,6 +6,7 @@ datasource:
 
 # 配置输出路径
 path:
+  dao: com.lin12.gengerator.dao
   entity: com.lin12.gengerator.pojo
 
 # 配置表明和类名

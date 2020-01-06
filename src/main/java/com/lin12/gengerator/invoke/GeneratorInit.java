@@ -34,19 +34,20 @@ public class GeneratorInit {
                 if(tableInfo.getClassName() == null){
                     tableInfo.setClassName(StringUtils.becomeClassName(tableInfo.getTableName()));
                 }
-                ResultSet resultSet = metaData.getColumns(connection.getCatalog(), "%", tableInfo.getTableName(), "%");
+                ResultSet columnSet = metaData.getColumns(connection.getCatalog(), null, tableInfo.getTableName(), "%");
                 //查询主键列
-                ResultSet primaryResultSet = metaData.getPrimaryKeys(null, "%", tableInfo.getTableName());
-                String primaryKeyColumnName = null;
-                while(primaryResultSet.next()){
-                    primaryKeyColumnName = primaryResultSet.getString("COLUMN_NAME");
-                }
+                ResultSet primaryResultSet = metaData.getPrimaryKeys(null, null, tableInfo.getTableName());
+                String primaryKeyColumnName = getResultSetString(primaryResultSet, "COLUMN_NAME");
+                //查询表注解
+                ResultSet tableSet = metaData.getTables(connection.getCatalog(), null, tableInfo.getTableName(), null);
+                String tableRemark = getResultSetString(tableSet, "REMARKS");
+                tableInfo.setTableRemark(tableRemark);
                 //遍历每一个列
-                while(resultSet.next()) {
+                while(columnSet.next()) {
                     boolean isPrimaryKey = false;
-                    String columnName = resultSet.getString("COLUMN_NAME");
-                    String columnType = resultSet.getString("TYPE_NAME");
-                    String columnAnnotation = resultSet.getString("REMARKS");
+                    String columnName = columnSet.getString("COLUMN_NAME");
+                    String columnType = columnSet.getString("TYPE_NAME");
+                    String columnAnnotation = columnSet.getString("REMARKS");
                     if(columnName.equals(primaryKeyColumnName)){
                         isPrimaryKey = true;
                     }
@@ -56,7 +57,7 @@ public class GeneratorInit {
                     List<ColumnInfo> columnInfos = tableInfo.getColumnInfos();
                     columnInfos.add(columnInfo);
                 }
-                resultSet.close();
+                columnSet.close();
             }
             connection.close();
             return tableInfos;
@@ -65,4 +66,17 @@ public class GeneratorInit {
         }
         return null;
     }
+
+    private String getResultSetString(ResultSet tableSet,String type){
+        String tableRemark = null;
+        try {
+            while(tableSet.next()){
+                return tableRemark = tableSet.getString(type);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
+
 }

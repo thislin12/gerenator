@@ -38,6 +38,7 @@ public class TypeUtil {
         typeMap.put("INT","java.lang.Integer");
 
         ftlMap.put(Constant.ENTITY,Constant.ENTITY_FTL);
+        ftlMap.put(Constant.DAO,Constant.DAO_FTL);
     }
 
     /**

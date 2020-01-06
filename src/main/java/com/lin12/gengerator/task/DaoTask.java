@@ -15,15 +15,17 @@ import java.util.Map;
 
 /**
  * @author lin12
- * @date 2019/12/23
+ * @date 2020/1/7
  */
-public class EntityTask {
+public class DaoTask {
 
     private ClassConfigInfo classConfigInfo;
 
-    public EntityTask(ClassConfigInfo classConfigInfo) {
+    public DaoTask(ClassConfigInfo classConfigInfo) {
         this.classConfigInfo = classConfigInfo;
     }
+
+    private static final String FILE_SUFFIX = "Dao";
 
     /**
      * 获取模板预编译文本map
@@ -33,32 +35,24 @@ public class EntityTask {
         Map<String, String> dataMap = new HashMap<String, String>(6);
         dataMap.put("ClassName", classConfigInfo.getClassName());
         dataMap.put("PackageName", classConfigInfo.getPackageName());
-        dataMap.put("ImportPackageList", classConfigInfo.getImportPackageList());
         dataMap.put("ClassHeadRemark", classConfigInfo.getClassHeadRemark());
-        dataMap.put("PropertyList", classConfigInfo.getPropertyList());
-        dataMap.put("ClassHeadAnnotation", classConfigInfo.getClassHeadAnnotation());
+        int i = classConfigInfo.getClassName().indexOf(FILE_SUFFIX);
+        dataMap.put("BaseMapperType", classConfigInfo.getClassName().substring(0, i));
         return dataMap;
     }
 
     /**
-     * 获取entity配置实体类
+     * 获取dao配置实体类
      * @param tableInfo tableInfo
      */
     public static void getEntityClassConfig(TableInfo tableInfo){
-        List<String> list = new ArrayList<String>(2);
-        if(YmlUtils.isMybatisPlus()){
-            list.add("@TableName(value = \"" + tableInfo.getTableName() + "\")");
-        }
-        if(YmlUtils.isSwagger()){
-            list.add("@ApiModel(value=\"" + tableInfo.getClassName() + "\", description=\"\")");
-        }
-        String classHeadAnnotation = StringUtils.headAnnotationLineFeed(list);
+        tableInfo.setClassName(tableInfo.getClassName() + FILE_SUFFIX);
         ClassConfigInfo classConfigInfo = new ClassConfigInfo(tableInfo.getClassName(),
-                GeneratorJointUtil.getPackageName(Constant.ENTITY),
-                GeneratorJointUtil.getImportList(tableInfo.getColumnInfos()),
-                GeneratorJointUtil.getClassHeadRemark(tableInfo.getTableRemark()),
-                classHeadAnnotation,
+                GeneratorJointUtil.getPackageName(Constant.DAO),
+                null,
+                GeneratorJointUtil.getClassHeadRemark(tableInfo.getTableRemark() + FILE_SUFFIX),
+                null,
                 GeneratorJointUtil.getPropertyList(tableInfo.getColumnInfos()));
-        FileUtil.generateToJava(new EntityTask(classConfigInfo).getTemplateData(), Constant.ENTITY);
+        FileUtil.generateToJava(new DaoTask(classConfigInfo).getTemplateData(), Constant.DAO);
     }
 }

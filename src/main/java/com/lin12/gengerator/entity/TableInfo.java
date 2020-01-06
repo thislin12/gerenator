@@ -14,6 +14,7 @@ public class TableInfo {
 
     private String tableName;
     private String className;
+    private String tableRemark;
     private List<ColumnInfo> columnInfos = new ArrayList<ColumnInfo>();
 
 

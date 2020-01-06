@@ -2,6 +2,7 @@ package com.lin12.gengerator.utils;
 
 
 import com.lin12.gengerator.entity.ColumnInfo;
+import com.lin12.gengerator.entity.TableInfo;
 
 
 import java.text.SimpleDateFormat;
@@ -59,8 +60,8 @@ public class GeneratorJointUtil {
      * 获取头部注解
      * @return String
      */
-    public static String getClassHeadRemark(){
-        return "/**\n" + "* \n" + "* @author " + getAuthorName() + "\n" + getCreateDate() + "*/";
+    public static String getClassHeadRemark(String tableRemark){
+        return "/**\n" + "* "+ tableRemark +"\n" + "* @author " + getAuthorName() + "\n" + getCreateDate() + "*/";
     }
 
 
