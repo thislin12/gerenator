@@ -40,6 +40,7 @@ public class TypeUtil {
         ftlMap.put(Constant.ENTITY,Constant.ENTITY_FTL);
         ftlMap.put(Constant.DAO,Constant.DAO_FTL);
         ftlMap.put(Constant.MAPPER,Constant.MAPPER_FTL);
+        ftlMap.put(Constant.SERVICE,Constant.SERVICE_FTL);
     }
 
     /**

@@ -4,6 +4,7 @@ import com.lin12.gengerator.entity.TableInfo;
 import com.lin12.gengerator.task.DaoTask;
 import com.lin12.gengerator.task.EntityTask;
 import com.lin12.gengerator.task.MapperTask;
+import com.lin12.gengerator.task.ServiceTask;
 
 import java.util.List;
 
@@ -19,6 +20,7 @@ public class Invoke {
             EntityTask.getClassConfig(tableInfo);
             DaoTask.getClassConfig(tableInfo);
             MapperTask.getClassConfig(tableInfo);
+            ServiceTask.getClassConfig(tableInfo);
         }
     }
 }

@@ -21,13 +21,8 @@ public class ClassConfigInfo {
 
     private String propertyList;
 
+    private String methodList;
 
-    public ClassConfigInfo(String className, String packageName, String importPackageList, String classHeadRemark, String classHeadAnnotation, String propertyList) {
-        this.className = className;
-        this.packageName = packageName;
-        this.importPackageList = importPackageList;
-        this.classHeadRemark = classHeadRemark;
-        this.classHeadAnnotation = classHeadAnnotation;
-        this.propertyList = propertyList;
+    public ClassConfigInfo() {
     }
 }

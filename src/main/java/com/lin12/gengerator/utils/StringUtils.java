@@ -103,4 +103,8 @@ public class StringUtils {
         }
         return classHeadAnnotation.toString();
     }
+
+    public static String firstToLowerCase(String src){
+        return src.substring(0,1).toLowerCase() + src.substring(1);
+    }
 }

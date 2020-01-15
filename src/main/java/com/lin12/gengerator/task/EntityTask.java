@@ -7,7 +7,6 @@ import com.lin12.gengerator.utils.FileUtil;
 import com.lin12.gengerator.utils.GeneratorJointUtil;
 import com.lin12.gengerator.utils.StringUtils;
 import com.lin12.gengerator.utils.YmlUtils;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -21,7 +20,7 @@ public class EntityTask {
 
     private ClassConfigInfo classConfigInfo;
 
-    public EntityTask(ClassConfigInfo classConfigInfo) {
+    private EntityTask(ClassConfigInfo classConfigInfo) {
         this.classConfigInfo = classConfigInfo;
     }
 
@@ -29,7 +28,7 @@ public class EntityTask {
      * 获取模板预编译文本map
      * @return Map<String, String>
      */
-    public Map<String, String> getTemplateData(){
+    private Map<String, String> getTemplateData(){
         Map<String, String> dataMap = new HashMap<String, String>(6);
         dataMap.put("ClassName", classConfigInfo.getClassName());
         dataMap.put("PackageName", classConfigInfo.getPackageName());
@@ -53,12 +52,14 @@ public class EntityTask {
             list.add("@ApiModel(value=\"" + tableInfo.getClassName() + "\", description=\"\")");
         }
         String classHeadAnnotation = StringUtils.headAnnotationLineFeed(list);
-        ClassConfigInfo classConfigInfo = new ClassConfigInfo(tableInfo.getClassName(),
-                GeneratorJointUtil.getPackageName(Constant.ENTITY),
-                GeneratorJointUtil.getImportList(tableInfo.getColumnInfos()),
-                GeneratorJointUtil.getClassHeadRemark(tableInfo.getTableRemark()),
-                classHeadAnnotation,
-                GeneratorJointUtil.getPropertyList(tableInfo.getColumnInfos()));
+        //设置 配置 ftl模板 预编译文本属性
+        ClassConfigInfo classConfigInfo = new ClassConfigInfo();
+        classConfigInfo.setClassName(tableInfo.getClassName());
+        classConfigInfo.setPackageName(GeneratorJointUtil.getPackageName(Constant.ENTITY));
+        classConfigInfo.setImportPackageList(GeneratorJointUtil.getImportList(tableInfo.getColumnInfos()));
+        classConfigInfo.setClassHeadRemark(GeneratorJointUtil.getClassHeadRemark(tableInfo.getTableRemark()));
+        classConfigInfo.setClassHeadAnnotation(classHeadAnnotation);
+        classConfigInfo.setPropertyList(GeneratorJointUtil.getPropertyList(tableInfo.getColumnInfos()));
         FileUtil.generateToJava(new EntityTask(classConfigInfo).getTemplateData(), Constant.ENTITY);
     }
 }

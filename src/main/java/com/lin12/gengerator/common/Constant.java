@@ -18,4 +18,7 @@ public final class Constant {
     public static final String MAPPER = "mapper";
     public static final String MAPPER_FTL = "Mapper.ftl";
 
+    public static final String SERVICE = "service";
+    public static final String SERVICE_FTL = "Service.ftl";
+
 }

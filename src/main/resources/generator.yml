@@ -7,8 +7,10 @@ datasource:
 # 配置输出路径
 path:
   dao: com.lin12.gengerator.dao
-  entity: com.lin12.gengerator.pojo
   mapper: resources.mapper
+  entity: com.lin12.gengerator.pojo
+  service: com.lin12.gengerator.service
+
 # 配置表明和类名
 tableConfig:
   tables:

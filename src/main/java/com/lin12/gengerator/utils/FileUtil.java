@@ -21,7 +21,7 @@ public class FileUtil {
     public static void generateToJava(Map<String, String> data,String pathProp)  {
         String path = YmlUtils.readGeneratorFilePath(pathProp);
         if (path == null){
-            System.out.println("没有找到"+ pathProp +"的生成路径");
+            System.out.println("Warn : 配置文件中没有找到"+ pathProp +"的生成路径");
             return;
         }
         String ftl = TypeUtil.getFtlMap(pathProp);
