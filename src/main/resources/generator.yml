@@ -8,7 +8,7 @@ datasource:
 path:
   dao: com.lin12.gengerator.dao
   entity: com.lin12.gengerator.pojo
-
+  mapper: resources.mapper
 # 配置表明和类名
 tableConfig:
   tables:

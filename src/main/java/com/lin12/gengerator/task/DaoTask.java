@@ -25,7 +25,7 @@ public class DaoTask {
         this.classConfigInfo = classConfigInfo;
     }
 
-    private static final String FILE_SUFFIX = "Dao";
+    public static final String FILE_SUFFIX = "Dao";
 
     /**
      * 获取模板预编译文本map
@@ -36,6 +36,7 @@ public class DaoTask {
         dataMap.put("ClassName", classConfigInfo.getClassName());
         dataMap.put("PackageName", classConfigInfo.getPackageName());
         dataMap.put("ClassHeadRemark", classConfigInfo.getClassHeadRemark());
+        dataMap.put("ImportPackageList", classConfigInfo.getImportPackageList());
         int i = classConfigInfo.getClassName().indexOf(FILE_SUFFIX);
         dataMap.put("BaseMapperType", classConfigInfo.getClassName().substring(0, i));
         return dataMap;
@@ -45,11 +46,10 @@ public class DaoTask {
      * 获取dao配置实体类
      * @param tableInfo tableInfo
      */
-    public static void getEntityClassConfig(TableInfo tableInfo){
-        tableInfo.setClassName(tableInfo.getClassName() + FILE_SUFFIX);
-        ClassConfigInfo classConfigInfo = new ClassConfigInfo(tableInfo.getClassName(),
+    public static void getClassConfig(TableInfo tableInfo){
+        ClassConfigInfo classConfigInfo = new ClassConfigInfo(tableInfo.getClassName() + FILE_SUFFIX,
                 GeneratorJointUtil.getPackageName(Constant.DAO),
-                null,
+                GeneratorJointUtil.getImportList(tableInfo.getColumnInfos()),
                 GeneratorJointUtil.getClassHeadRemark(tableInfo.getTableRemark() + FILE_SUFFIX),
                 null,
                 GeneratorJointUtil.getPropertyList(tableInfo.getColumnInfos()));

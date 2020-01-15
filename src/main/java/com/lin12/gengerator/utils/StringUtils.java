@@ -71,7 +71,7 @@ public class StringUtils {
     }
 
     /**
-     *
+     * 把点切换成 \
      * @param packageName
      * @return
      */

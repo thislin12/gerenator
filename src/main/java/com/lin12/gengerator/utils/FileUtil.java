@@ -1,5 +1,6 @@
 package com.lin12.gengerator.utils;
 
+import com.lin12.gengerator.common.Constant;
 import com.lin12.gengerator.entity.TableInfo;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
@@ -24,7 +25,17 @@ public class FileUtil {
             return;
         }
         String ftl = TypeUtil.getFtlMap(pathProp);
-        File file = new File(FileUtil.getSourcePath() + StringUtils.package2Path(path) + data.get("ClassName") + ".java");
+        File file;
+        if(path.contains(Constant.RESOURCES)){
+            file = new File(FileUtil.getResourcePath() + StringUtils.package2Path(path) + data.get("ClassName") + ".xml");
+            String namespace = data.get("Namespace");
+            if (namespace == null){
+                throw new RuntimeException("配置 dao 路径 才能 生成Mapper");
+            }
+        }else {
+            file = new File(FileUtil.getSourcePath() + StringUtils.package2Path(path) + data.get("ClassName") + ".java");
+        }
+
         try {
             Template template = FreemarkerConfigUtils.getInstance().getTemplate(ftl);
             StringWriter writer = new StringWriter();
@@ -69,7 +80,7 @@ public class FileUtil {
      * @return String
      */
     public static String getResourcePath() {
-        return getBasicProjectPath() + "resources" + File.separator;
+        return getBasicProjectPath()  ;
     }
 
 

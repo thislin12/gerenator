@@ -3,6 +3,7 @@ package com.lin12.gengerator.invoke;
 import com.lin12.gengerator.entity.TableInfo;
 import com.lin12.gengerator.task.DaoTask;
 import com.lin12.gengerator.task.EntityTask;
+import com.lin12.gengerator.task.MapperTask;
 
 import java.util.List;
 
@@ -15,8 +16,9 @@ public class Invoke {
     public static void run(){
         List<TableInfo> tableInfoAll = new GeneratorInit().getTableInfoAll();
         for (TableInfo tableInfo : tableInfoAll) {
-            EntityTask.getEntityClassConfig(tableInfo);
-            DaoTask.getEntityClassConfig(tableInfo);
+            EntityTask.getClassConfig(tableInfo);
+            DaoTask.getClassConfig(tableInfo);
+            MapperTask.getClassConfig(tableInfo);
         }
     }
 }
