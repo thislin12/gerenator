@@ -1,7 +1,12 @@
-${PackageName}
+${packageName}
 
-${ClassHeadRemark}
-public interface ${ClassName} extends BaseMapper<${BaseMapperType}>{
+/**
+* ${remark}Dao
+* @author ${author}
+* @date ${date}
+*/
+@Repository
+public interface ${className} extends BaseMapper<${entityName}>{
 
 
 }

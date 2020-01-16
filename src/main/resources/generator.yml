@@ -4,31 +4,38 @@ datasource:
   url: jdbc:mysql://localhost:3306/lin12_blog?serverTimezone=GMT%2B8&characterEncoding=utf-8
   driverClassName: com.mysql.cj.jdbc.Driver
 
-# 配置输出路径
+# 配置文件生成路径
 path:
-  dao: com.lin12.gengerator.dao
+  dao: com.lin12.gengerator.linuser
   mapper: resources.mapper
-  entity: com.lin12.gengerator.pojo
-  service: com.lin12.gengerator.service
+  entity: com.lin12.gengerator.linuser
+  service: com.lin12.gengerator.linuser
+  serviceImpl: com.lin12.gengerator.linuser
+  controller: com.lin12.gengerator.linuser
 
-# 配置表明和类名
+# 配置表名和类名 类名可以不配置
 tableConfig:
   tables:
     - table:
-        tableName: lin_user
-        ClassName: LinUser
+        tableName: linuser
+        ClassName:
 
 # 配置参数
 generatorConfig:
-  date: true
   author: lin12
   mybatis-plus: true
   swagger: true
 
-# ftl预编译 模板内不需要的可以删除
-# PackageName 包路径
-# ImportPackageList 导包
-# ClassHeadRemark 表头备注 包含 作者和日期
-# ClassHeadAnnotation 表头注解  @TableName() 等 如果项目不需要表头注解 则模板内可以删除 否则 影响 自定义模板添加注解换行问题
-# ClassName 类名
-# PropertyList 所有属性
+# lin12generator说明   如果文件存在则需要手动修改 不进行覆盖
+
+# ftl预编译 使用${}来获取值 模板内不需要的可以删除 如果使用未定义则会报错
+# author 作者
+# date 当前日期
+# remark 表注解
+# tableName 表名
+# className 类名
+# entityName 表对应实体类 属性名
+# entityClassName 表对于实体类 类名
+# packageName 导包
+# namespace xml 对于 Dao 命名空间 需要配置dao路径才能获得
+# propertyList 表对应实体类属性 可以通过配置mybatis-plus 或者 swagger 生成对应所需代码

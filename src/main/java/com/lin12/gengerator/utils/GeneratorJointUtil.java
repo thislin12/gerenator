@@ -2,11 +2,7 @@ package com.lin12.gengerator.utils;
 
 
 import com.lin12.gengerator.entity.ColumnInfo;
-import com.lin12.gengerator.entity.TableInfo;
 
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -56,13 +52,6 @@ public class GeneratorJointUtil {
         return sb.toString();
     }
 
-    /**
-     * 获取头部注解
-     * @return String
-     */
-    public static String getClassHeadRemark(String tableRemark){
-        return "/**\n" + "* "+ tableRemark +"\n" + "* @author " + getAuthorName() + "\n" + getCreateDate() + "*/";
-    }
 
 
 
@@ -113,20 +102,7 @@ public class GeneratorJointUtil {
         return (String)YmlUtils.generatorConfig("author");
     }
 
-    /**
-     * 获取注解 创建时间
-     * @return String
-     */
-    public static String getCreateDate(){
-        Boolean isDate = (Boolean)YmlUtils.generatorConfig("date");
-        if (isDate){
-            Date date = new Date();
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-            String format = simpleDateFormat.format(date);
-            return "* @date " + format + "\n";
-        }
-        return "";
-    }
+
 
 
 

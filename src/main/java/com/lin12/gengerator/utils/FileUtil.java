@@ -1,14 +1,11 @@
 package com.lin12.gengerator.utils;
 
 import com.lin12.gengerator.common.Constant;
-import com.lin12.gengerator.entity.TableInfo;
+import com.lin12.gengerator.common.TypeConfig;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
-import freemarker.template.utility.StringUtil;
 
 import java.io.*;
-import java.net.URL;
-import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -24,16 +21,24 @@ public class FileUtil {
             System.out.println("Warn : 配置文件中没有找到"+ pathProp +"的生成路径");
             return;
         }
-        String ftl = TypeUtil.getFtlMap(pathProp);
+        String ftl = TypeConfig.getFtlMap(pathProp);
         File file;
         if(path.contains(Constant.RESOURCES)){
-            file = new File(FileUtil.getResourcePath() + StringUtils.package2Path(path) + data.get("ClassName") + ".xml");
-            String namespace = data.get("Namespace");
+            file = new File(FileUtil.getResourcePath() + StringUtils.package2Path(path) + data.get("className") + ".xml");
+            String namespace = data.get("namespace");
             if (namespace == null){
                 throw new RuntimeException("配置 dao 路径 才能 生成Mapper");
             }
+            File folder = new File(FileUtil.getResourcePath() + StringUtils.package2Path(path));
+            if (!folder.exists()) {
+                folder.mkdirs();
+            }
         }else {
-            file = new File(FileUtil.getSourcePath() + StringUtils.package2Path(path) + data.get("ClassName") + ".java");
+            file = new File(FileUtil.getSourcePath() + StringUtils.package2Path(path) + data.get("className") + ".java");
+            File folder = new File(FileUtil.getSourcePath() + StringUtils.package2Path(path));
+            if (!folder.exists()) {
+                folder.mkdirs();
+            }
         }
 
         try {
@@ -41,18 +46,22 @@ public class FileUtil {
             StringWriter writer = new StringWriter();
             template.process(data, writer);
             writer.flush();
+            if (file.exists()) {
+                System.err.println("Error: " + file.getPath().substring(file.getPath().lastIndexOf("\\") + 1, file.getPath().length()) + " 已存在，请手动修改");
+                return;
+            }
             FileOutputStream fos = new FileOutputStream(file);
             OutputStreamWriter osw = new OutputStreamWriter(fos, "UTF-8");
             BufferedWriter bw = new BufferedWriter(osw, 1024);
             template.process(data, bw);
             fos.close();
-            System.out.println("Succeed: 已生成" + data.get("ClassName") + ".java");
+            System.out.println("Succeed: 已生成" + data.get("className") + ".java");
         } catch (TemplateException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ExceptionInInitializerError e) {
-            System.out.println("Error: 没有找到" + ftl + "的模板文件");
+            System.err.println("Error: 没有找到" + ftl + "的模板文件");
         }
 
     }

@@ -21,4 +21,10 @@ public final class Constant {
     public static final String SERVICE = "service";
     public static final String SERVICE_FTL = "Service.ftl";
 
+    public static final String SERVICE_IMPL = "serviceImpl";
+    public static final String SERVICE_IMPL_FTL = "ServiceImpl.ftl";
+
+    public static final String CONTROLLER = "controller";
+    public static final String CONTROLLER_FTL = "Controller.ftl";
+
 }

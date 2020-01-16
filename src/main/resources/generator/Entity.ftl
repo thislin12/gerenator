@@ -1,14 +1,17 @@
-${PackageName}
+${packageName}
 
 import lombok.Data;
-${ImportPackageList}
 
-${ClassHeadRemark}
-
+/**
+* ${remark}
+* @author ${author}
+* @date ${date}
+*/
 @Data
-${ClassHeadAnnotation}
-public class ${ClassName}  {
+@TableName(value = "${tableName}")
+@ApiModel(value="${className}", description="${remark}")
+public class ${className} {
 
-${PropertyList}
+${propertyList}
 
 }

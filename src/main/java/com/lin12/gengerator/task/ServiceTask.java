@@ -1,14 +1,9 @@
 package com.lin12.gengerator.task;
 
 import com.lin12.gengerator.common.Constant;
-import com.lin12.gengerator.entity.ClassConfigInfo;
+import com.lin12.gengerator.entity.FtlConfigInfo;
 import com.lin12.gengerator.entity.TableInfo;
-import com.lin12.gengerator.utils.FileUtil;
-import com.lin12.gengerator.utils.GeneratorJointUtil;
-import com.lin12.gengerator.utils.MethodUtils;
-
-import java.util.HashMap;
-import java.util.Map;
+import com.lin12.gengerator.utils.*;
 
 /**
  * @author lin12
@@ -16,38 +11,28 @@ import java.util.Map;
  */
 public class ServiceTask {
 
-    private ClassConfigInfo classConfigInfo;
+    private FtlConfigInfo ftlConfigInfo;
 
-    private ServiceTask(ClassConfigInfo classConfigInfo) {
-        this.classConfigInfo = classConfigInfo;
+    private ServiceTask(FtlConfigInfo ftlConfigInfo) {
+        this.ftlConfigInfo = ftlConfigInfo;
     }
 
     private static final String FILE_SUFFIX = "Service";
 
-
     /**
-     * 获取模板预编译文本map
-     * @return Map<String, String>
-     */
-    private Map<String, String> getTemplateData(){
-        Map<String, String> dataMap = new HashMap<String, String>(6);
-        dataMap.put("ClassName", classConfigInfo.getClassName() + FILE_SUFFIX);
-        dataMap.put("PackageName", classConfigInfo.getPackageName());
-        dataMap.put("ClassHeadRemark", classConfigInfo.getClassHeadRemark());
-        dataMap.put("Methods",classConfigInfo.getMethodList());
-        return dataMap;
-    }
-
-    /**
-     * 获取dao配置实体类
+     * 配置实体类 并创建文件
      * @param tableInfo tableInfo
      */
     public static void getClassConfig(TableInfo tableInfo){
-        ClassConfigInfo classConfigInfo = new ClassConfigInfo();
-        classConfigInfo.setMethodList(MethodUtils.getServiceMethod(tableInfo));
-        classConfigInfo.setClassName(tableInfo.getClassName() );
-        classConfigInfo.setPackageName(GeneratorJointUtil.getPackageName(Constant.SERVICE));
-        classConfigInfo.setClassHeadRemark(GeneratorJointUtil.getClassHeadRemark(tableInfo.getTableRemark() + FILE_SUFFIX));
-        FileUtil.generateToJava(new ServiceTask(classConfigInfo).getTemplateData(), Constant.SERVICE);
+        FtlConfigInfo ftlConfigInfo = new FtlConfigInfo();
+        ftlConfigInfo.setAuthor((String) YmlUtils.generatorConfig("author"));
+        ftlConfigInfo.setDate(StringUtils.getNowDateString());
+        ftlConfigInfo.setRemark(tableInfo.getTableRemark());
+        ftlConfigInfo.setClassName(tableInfo.getClassName() + FILE_SUFFIX);
+        ftlConfigInfo.setTableName(tableInfo.getTableName());
+        ftlConfigInfo.setEntityName(StringUtils.firstToLowerCase(tableInfo.getClassName()));
+        ftlConfigInfo.setEntityClassName(StringUtils.firstToUpperCase(tableInfo.getClassName()));
+        ftlConfigInfo.setPackageName(GeneratorJointUtil.getPackageName(Constant.SERVICE));
+        FileUtil.generateToJava(Prop2MapUtil.prop2Map(ftlConfigInfo), Constant.SERVICE);
     }
 }

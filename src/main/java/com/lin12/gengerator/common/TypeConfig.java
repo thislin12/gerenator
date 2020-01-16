@@ -1,6 +1,4 @@
-package com.lin12.gengerator.utils;
-
-import com.lin12.gengerator.common.Constant;
+package com.lin12.gengerator.common;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -10,7 +8,7 @@ import java.util.Map;
  * @author lin12
  * @date 2019/12/22
  */
-public class TypeUtil {
+public class TypeConfig {
 
     private static Map<String,String> typeMap = new HashMap<String,String>();
 
@@ -41,6 +39,8 @@ public class TypeUtil {
         ftlMap.put(Constant.DAO,Constant.DAO_FTL);
         ftlMap.put(Constant.MAPPER,Constant.MAPPER_FTL);
         ftlMap.put(Constant.SERVICE,Constant.SERVICE_FTL);
+        ftlMap.put(Constant.SERVICE_IMPL,Constant.SERVICE_IMPL_FTL);
+        ftlMap.put(Constant.CONTROLLER, Constant.CONTROLLER_FTL);
     }
 
     /**

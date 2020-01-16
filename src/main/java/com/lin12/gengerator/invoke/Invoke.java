@@ -1,10 +1,7 @@
 package com.lin12.gengerator.invoke;
 
 import com.lin12.gengerator.entity.TableInfo;
-import com.lin12.gengerator.task.DaoTask;
-import com.lin12.gengerator.task.EntityTask;
-import com.lin12.gengerator.task.MapperTask;
-import com.lin12.gengerator.task.ServiceTask;
+import com.lin12.gengerator.task.*;
 
 import java.util.List;
 
@@ -21,6 +18,8 @@ public class Invoke {
             DaoTask.getClassConfig(tableInfo);
             MapperTask.getClassConfig(tableInfo);
             ServiceTask.getClassConfig(tableInfo);
+            ServiceImplTask.getClassConfig(tableInfo);
+            ControllerTask.getClassConfig(tableInfo);
         }
     }
 }

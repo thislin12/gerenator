@@ -7,25 +7,32 @@ import com.lin12.gengerator.utils.*;
 
 /**
  * @author lin12
- * @date 2019/12/23
+ * @date 2020/1/16
  */
-public class EntityTask {
+public class ControllerTask {
+
+    private FtlConfigInfo ftlConfigInfo;
+
+    public void setFtlConfigInfo(FtlConfigInfo ftlConfigInfo) {
+        this.ftlConfigInfo = ftlConfigInfo;
+    }
+
+    private static final String FILE_SUFFIX = "Controller";
 
     /**
      * 配置实体类 并创建文件
      * @param tableInfo tableInfo
      */
     public static void getClassConfig(TableInfo tableInfo){
-        //设置 配置 ftl模板 预编译文本属性
         FtlConfigInfo ftlConfigInfo = new FtlConfigInfo();
         ftlConfigInfo.setAuthor((String) YmlUtils.generatorConfig("author"));
         ftlConfigInfo.setDate(StringUtils.getNowDateString());
         ftlConfigInfo.setRemark(tableInfo.getTableRemark());
-        ftlConfigInfo.setClassName(tableInfo.getClassName());
+        ftlConfigInfo.setClassName(tableInfo.getClassName() + FILE_SUFFIX);
         ftlConfigInfo.setTableName(tableInfo.getTableName());
-        ftlConfigInfo.setPackageName(GeneratorJointUtil.getPackageName(Constant.ENTITY));
         ftlConfigInfo.setEntityName(StringUtils.firstToLowerCase(tableInfo.getClassName()));
-        ftlConfigInfo.setPropertyList(GeneratorJointUtil.getPropertyList(tableInfo.getColumnInfos()));
-        FileUtil.generateToJava(Prop2MapUtil.prop2Map(ftlConfigInfo), Constant.ENTITY);
+        ftlConfigInfo.setEntityClassName(StringUtils.firstToUpperCase(tableInfo.getClassName()));
+        ftlConfigInfo.setPackageName(GeneratorJointUtil.getPackageName(Constant.CONTROLLER));
+        FileUtil.generateToJava(Prop2MapUtil.prop2Map(ftlConfigInfo), Constant.CONTROLLER);
     }
 }

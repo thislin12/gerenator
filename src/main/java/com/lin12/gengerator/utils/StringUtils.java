@@ -1,9 +1,9 @@
 package com.lin12.gengerator.utils;
 
 
-import freemarker.template.utility.StringUtil;
-
 import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -104,7 +104,31 @@ public class StringUtils {
         return classHeadAnnotation.toString();
     }
 
+    /**
+     * 第一个单词小写
+     * @param src 字符串
+     * @return String
+     */
     public static String firstToLowerCase(String src){
         return src.substring(0,1).toLowerCase() + src.substring(1);
+    }
+
+    /**
+     * 第一个单词大写
+     * @param src 字符串
+     * @return String
+     */
+    public static String firstToUpperCase(String src){
+        return src.substring(0,1).toUpperCase() + src.substring(1);
+    }
+    /**
+     * 返回当前时间字符串
+     * @return String
+     */
+    public static String getNowDateString(){
+        Date date = new Date();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String format = simpleDateFormat.format(date);
+        return format;
     }
 }

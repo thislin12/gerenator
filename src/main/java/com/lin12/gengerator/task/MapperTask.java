@@ -1,13 +1,11 @@
 package com.lin12.gengerator.task;
 
 import com.lin12.gengerator.common.Constant;
-import com.lin12.gengerator.entity.ClassConfigInfo;
+import com.lin12.gengerator.entity.FtlConfigInfo;
 import com.lin12.gengerator.entity.TableInfo;
 import com.lin12.gengerator.utils.FileUtil;
-import com.lin12.gengerator.utils.GeneratorJointUtil;
+import com.lin12.gengerator.utils.Prop2MapUtil;
 import com.lin12.gengerator.utils.YmlUtils;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @author lin12
@@ -15,36 +13,16 @@ import java.util.Map;
  */
 public class MapperTask  {
 
-    private ClassConfigInfo classConfigInfo;
-
-     private MapperTask(ClassConfigInfo classConfigInfo) {
-        this.classConfigInfo = classConfigInfo;
-    }
-
      private static final String FILE_SUFFIX = "Mapper";
 
     /**
-     * 获取模板预编译文本map
-     * @return Map<String, String>
-     */
-     private Map<String, String> getTemplateData(){
-        Map<String, String> dataMap = new HashMap<String, String>(6);
-        dataMap.put("ClassName", classConfigInfo.getClassName() + FILE_SUFFIX);
-        dataMap.put("Namespace", YmlUtils.readGeneratorFilePath(Constant.DAO) + "." + classConfigInfo.getClassName() + DaoTask.FILE_SUFFIX);
-        return dataMap;
-    }
-
-    /**
-     * 获取mapper配置实体类
+     * 配置实体类 并创建文件
      * @param tableInfo tableInfo
      */
     public static void getClassConfig(TableInfo tableInfo){
-        ClassConfigInfo classConfigInfo = new ClassConfigInfo();
-        classConfigInfo.setClassName(tableInfo.getClassName() );
-        classConfigInfo.setPackageName(GeneratorJointUtil.getPackageName(Constant.MAPPER));
-        classConfigInfo.setImportPackageList(GeneratorJointUtil.getImportList(tableInfo.getColumnInfos()));
-        classConfigInfo.setClassHeadRemark(GeneratorJointUtil.getClassHeadRemark(tableInfo.getTableRemark()));
-        classConfigInfo.setPropertyList(GeneratorJointUtil.getPropertyList(tableInfo.getColumnInfos()));
-        FileUtil.generateToJava(new MapperTask(classConfigInfo).getTemplateData(), Constant.MAPPER);
+        FtlConfigInfo ftlConfigInfo = new FtlConfigInfo();
+        ftlConfigInfo.setClassName(tableInfo.getClassName() + FILE_SUFFIX);
+        ftlConfigInfo.setNamespace(YmlUtils.readGeneratorFilePath(Constant.DAO) + "." + ftlConfigInfo.getClassName() + DaoTask.FILE_SUFFIX);
+        FileUtil.generateToJava(Prop2MapUtil.prop2Map(ftlConfigInfo), Constant.MAPPER);
     }
 }

@@ -4,7 +4,7 @@ import com.lin12.gengerator.entity.ColumnInfo;
 import com.lin12.gengerator.entity.TableInfo;
 import com.lin12.gengerator.utils.ConnectionUtil;
 import com.lin12.gengerator.utils.StringUtils;
-import com.lin12.gengerator.utils.TypeUtil;
+import com.lin12.gengerator.common.TypeConfig;
 import com.lin12.gengerator.utils.YmlUtils;
 
 import java.sql.Connection;
@@ -52,7 +52,7 @@ public class GeneratorInit {
                         isPrimaryKey = true;
                     }
                     columnName = StringUtils.nomenclatureOfHump(columnName);
-                    columnType = TypeUtil.getColumnType(columnType);
+                    columnType = TypeConfig.getColumnType(columnType);
                     ColumnInfo columnInfo = new ColumnInfo(columnName, columnType, columnAnnotation, isPrimaryKey);
                     List<ColumnInfo> columnInfos = tableInfo.getColumnInfos();
                     columnInfos.add(columnInfo);

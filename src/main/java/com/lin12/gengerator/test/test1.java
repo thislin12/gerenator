@@ -1,18 +1,13 @@
 package com.lin12.gengerator.test;
 
+import com.lin12.gengerator.entity.FtlConfigInfo;
 import com.lin12.gengerator.utils.FileUtil;
-import com.lin12.gengerator.utils.FreemarkerConfigUtils;
+import com.lin12.gengerator.utils.Prop2MapUtil;
 import com.lin12.gengerator.utils.StringUtils;
-import com.lin12.gengerator.utils.YmlUtils;
-import freemarker.template.Configuration;
-import freemarker.template.Template;
 import freemarker.template.TemplateException;
-import freemarker.template.utility.StringUtil;
 import org.junit.jupiter.api.Test;
 
-import java.io.*;
-import java.util.HashMap;
-import java.util.Locale;
+import java.io.IOException;
 import java.util.Map;
 
 
@@ -34,5 +29,14 @@ public class test1 {
     public void test1() throws IOException {
         String s = StringUtils.package2Path("com.lin12.gengerator.pojo");
         System.out.println(s);
+    }
+
+    @Test
+    public void test3() throws IOException {
+        FtlConfigInfo ftlConfigInfo = new FtlConfigInfo();
+        ftlConfigInfo.setClassName("LinUser");
+        ftlConfigInfo.setPackageName("com.lin12.gengerator.pojo");
+        Map<String, String> map = Prop2MapUtil.prop2Map(ftlConfigInfo);
+        System.out.println(map);
     }
 }
