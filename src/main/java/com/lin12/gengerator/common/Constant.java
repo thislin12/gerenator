@@ -8,6 +8,7 @@ public final class Constant {
 
     public static final String YML_CONFIG_PATH = "generator.yml";
     public static final String RESOURCES = "resources";
+    public static final String CREATE_PACKAGE = "create-package";
 
     public static final String ENTITY = "entity";
     public static final String ENTITY_FTL = "Entity.ftl";

@@ -21,33 +21,40 @@ public class FileUtil {
             System.out.println("Warn : 配置文件中没有找到"+ pathProp +"的生成路径");
             return;
         }
-        String ftl = TypeConfig.getFtlMap(pathProp);
+        String javaPath = FileUtil.getSourcePath() + StringUtils.package2Path(path);
+        String xmlPath = FileUtil.getResourcePath() + StringUtils.package2Path(path);
+        if ((Boolean) YmlUtils.generatorConfig(Constant.CREATE_PACKAGE)){
+            String className = data.get("entityName");
+            javaPath += className.toLowerCase() + "\\";
+        }
+
         File file;
+
         if(path.contains(Constant.RESOURCES)){
-            file = new File(FileUtil.getResourcePath() + StringUtils.package2Path(path) + data.get("className") + ".xml");
+            file = new File( xmlPath + data.get("className") + ".xml");
             String namespace = data.get("namespace");
             if (namespace == null){
                 throw new RuntimeException("配置 dao 路径 才能 生成Mapper");
             }
-            File folder = new File(FileUtil.getResourcePath() + StringUtils.package2Path(path));
+            File folder = new File(xmlPath);
             if (!folder.exists()) {
                 folder.mkdirs();
             }
         }else {
-            file = new File(FileUtil.getSourcePath() + StringUtils.package2Path(path) + data.get("className") + ".java");
-            File folder = new File(FileUtil.getSourcePath() + StringUtils.package2Path(path));
+            file = new File( javaPath + data.get("className") + ".java");
+            File folder = new File(javaPath);
             if (!folder.exists()) {
                 folder.mkdirs();
             }
         }
-
+        String ftl = TypeConfig.getFtlMap(pathProp);
         try {
             Template template = FreemarkerConfigUtils.getInstance().getTemplate(ftl);
             StringWriter writer = new StringWriter();
             template.process(data, writer);
             writer.flush();
             if (file.exists()) {
-                System.err.println("Error: " + file.getPath().substring(file.getPath().lastIndexOf("\\") + 1, file.getPath().length()) + " 已存在，请手动修改");
+                System.err.println("Error: " + file.getPath().substring(file.getPath().lastIndexOf("\\") + 1) + " 已存在，请手动修改");
                 return;
             }
             FileOutputStream fos = new FileOutputStream(file);
@@ -80,7 +87,7 @@ public class FileUtil {
      * 获取源码路径
      * @return String
      */
-    public static String getSourcePath() {
+    private static String getSourcePath() {
         return getBasicProjectPath() + "java" + File.separator;
     }
 
@@ -88,7 +95,7 @@ public class FileUtil {
      * 获取资源文件路径
      * @return String
      */
-    public static String getResourcePath() {
+    private static String getResourcePath() {
         return getBasicProjectPath()  ;
     }
 

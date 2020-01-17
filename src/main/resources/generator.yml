@@ -1,23 +1,23 @@
 datasource:
   username: root
   password: 1234
-  url: jdbc:mysql://localhost:3306/lin12_blog?serverTimezone=GMT%2B8&characterEncoding=utf-8
+  url: jdbc:mysql://localhost:3306/cehuibao?serverTimezone=GMT%2B8&characterEncoding=utf-8
   driverClassName: com.mysql.cj.jdbc.Driver
 
 # 配置文件生成路径
 path:
-  dao: com.lin12.gengerator.linuser
+  dao: com.lin12.gengerator
   mapper: resources.mapper
-  entity: com.lin12.gengerator.linuser
-  service: com.lin12.gengerator.linuser
-  serviceImpl: com.lin12.gengerator.linuser
-  controller: com.lin12.gengerator.linuser
+  entity: com.lin12.gengerator
+  service: com.lin12.gengerator
+  serviceImpl: com.lin12.gengerator
+  controller: com.lin12.gengerator
 
 # 配置表名和类名 类名可以不配置
 tableConfig:
   tables:
     - table:
-        tableName: linuser
+        tableName: project
         ClassName:
 
 # 配置参数
@@ -25,6 +25,7 @@ generatorConfig:
   author: lin12
   mybatis-plus: true
   swagger: true
+  create-package: true
 
 # lin12generator说明   如果文件存在则需要手动修改 不进行覆盖
 

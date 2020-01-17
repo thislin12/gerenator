@@ -34,6 +34,8 @@ public class TypeConfig {
         typeMap.put("TIMESTAMP","java.sql.Timestamp");
         typeMap.put("YEAR","java.sql.Date");
         typeMap.put("INT","java.lang.Integer");
+        typeMap.put("BIGINT UNSIGNED","import java.math.BigInteger;");
+
 
         ftlMap.put(Constant.ENTITY,Constant.ENTITY_FTL);
         ftlMap.put(Constant.DAO,Constant.DAO_FTL);
@@ -51,7 +53,7 @@ public class TypeConfig {
     public static String getColumnType(String columnType){
         String s = typeMap.get(columnType);
         if(s == null){
-            throw new RuntimeException("columnType is empty");
+            throw new RuntimeException(columnType + " columnType is empty");
         }
         return s;
     }
