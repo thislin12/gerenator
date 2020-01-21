@@ -1,6 +1,7 @@
 package com.lin12.gengerator.utils;
 
 
+import com.lin12.gengerator.common.Constant;
 import com.lin12.gengerator.entity.ColumnInfo;
 
 import java.util.HashMap;
@@ -23,6 +24,10 @@ public class GeneratorJointUtil {
         String path = YmlUtils.readGeneratorFilePath(pathProp);
         if(path == null){
             return null;
+        }
+        if (!"".equals(YmlUtils.generatorConfig(Constant.CREATE_PACKAGE))){
+            String packagePath = (String)YmlUtils.generatorConfig(Constant.CREATE_PACKAGE);
+            path += "." + packagePath.toLowerCase();
         }
         return "package " + path + ";";
     }
@@ -93,19 +98,6 @@ public class GeneratorJointUtil {
         }
         return "    /**\n" + "     * " + annotationName + "\n" + "     */\n";
     }
-
-    /**
-     * 获取注解 作者名称
-     * @return String
-     */
-    public static String getAuthorName(){
-        return (String)YmlUtils.generatorConfig("author");
-    }
-
-
-
-
-
 
 
 }

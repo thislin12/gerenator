@@ -23,9 +23,9 @@ public class FileUtil {
         }
         String javaPath = FileUtil.getSourcePath() + StringUtils.package2Path(path);
         String xmlPath = FileUtil.getResourcePath() + StringUtils.package2Path(path);
-        if ((Boolean) YmlUtils.generatorConfig(Constant.CREATE_PACKAGE)){
-            String className = data.get("entityName");
-            javaPath += className.toLowerCase() + "\\";
+        if (!"".equals(YmlUtils.generatorConfig(Constant.CREATE_PACKAGE))){
+            String packagePath = (String)YmlUtils.generatorConfig(Constant.CREATE_PACKAGE);
+            javaPath += packagePath.toLowerCase() + "\\";
         }
 
         File file;

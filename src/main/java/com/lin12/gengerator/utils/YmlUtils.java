@@ -90,4 +90,17 @@ public class YmlUtils {
     public static boolean isSwagger(){
         return (Boolean) YmlUtils.generatorConfig("swagger");
     }
+
+    /**
+     * 如果需要指定同一个包路径 则生成pojo类名 全小写的 包
+     * @param entityName entityName
+     * @return String
+     */
+    public static String isCreatePackage(String entityName){
+        String entityPackage = "";
+        if((Boolean) YmlUtils.generatorConfig(Constant.CREATE_PACKAGE)){
+            entityPackage += "\\" + entityName.toLowerCase();
+        }
+        return entityPackage;
+    }
 }

@@ -34,7 +34,7 @@ public class TypeConfig {
         typeMap.put("TIMESTAMP","java.sql.Timestamp");
         typeMap.put("YEAR","java.sql.Date");
         typeMap.put("INT","java.lang.Integer");
-        typeMap.put("BIGINT UNSIGNED","import java.math.BigInteger;");
+        typeMap.put("BIGINT UNSIGNED","import java.math.BigInteger");
 
 
         ftlMap.put(Constant.ENTITY,Constant.ENTITY_FTL);

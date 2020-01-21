@@ -25,7 +25,7 @@ generatorConfig:
   author: lin12
   mybatis-plus: true
   swagger: true
-  create-package: true
+  create-package: project
 
 # lin12generator说明   如果文件存在则需要手动修改 不进行覆盖
 
