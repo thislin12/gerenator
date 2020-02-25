@@ -23,11 +23,10 @@ public class FileUtil {
         }
         String javaPath = FileUtil.getSourcePath() + StringUtils.package2Path(path);
         String xmlPath = FileUtil.getResourcePath() + StringUtils.package2Path(path);
-        if (!"".equals(YmlUtils.generatorConfig(Constant.CREATE_PACKAGE))){
-            String packagePath = (String)YmlUtils.generatorConfig(Constant.CREATE_PACKAGE);
-            javaPath += packagePath.toLowerCase() + "\\";
+        String unifyPackage = (String)YmlUtils.generatorConfig(Constant.UNIFY_PACKAGE);
+        if (!"".equals(unifyPackage) && unifyPackage != null){
+            javaPath += unifyPackage.toLowerCase() + "\\";
         }
-
         File file;
 
         if(path.contains(Constant.RESOURCES)){

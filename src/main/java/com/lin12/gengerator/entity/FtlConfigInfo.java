@@ -27,8 +27,17 @@ public class FtlConfigInfo {
 
     private String namespace;
 
-
     private String propertyList;
+
+    private String entityPath;
+
+    private String controllerPath;
+
+    private String servicePath;
+
+    private String serviceImplPath;
+
+    private String daoPath;
 
 
 

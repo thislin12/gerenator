@@ -98,7 +98,7 @@ public class YmlUtils {
      */
     public static String isCreatePackage(String entityName){
         String entityPackage = "";
-        if((Boolean) YmlUtils.generatorConfig(Constant.CREATE_PACKAGE)){
+        if((Boolean) YmlUtils.generatorConfig(Constant.UNIFY_PACKAGE)){
             entityPackage += "\\" + entityName.toLowerCase();
         }
         return entityPackage;

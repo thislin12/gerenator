@@ -27,6 +27,8 @@ public class ServiceImplTask {
         ftlConfigInfo.setEntityName(StringUtils.firstToLowerCase(tableInfo.getClassName()));
         ftlConfigInfo.setEntityClassName(StringUtils.firstToUpperCase(tableInfo.getClassName()));
         ftlConfigInfo.setPackageName(GeneratorJointUtil.getPackageName(Constant.SERVICE_IMPL));
+
+        FreemarkerConfigUtils.setFtlMVCPath(ftlConfigInfo);
         FileUtil.generateToJava(Prop2MapUtil.prop2Map(ftlConfigInfo), Constant.SERVICE_IMPL);
     }
 }

@@ -26,6 +26,7 @@ public class EntityTask {
         ftlConfigInfo.setPackageName(GeneratorJointUtil.getPackageName(Constant.ENTITY));
         ftlConfigInfo.setEntityName(StringUtils.firstToLowerCase(tableInfo.getClassName()));
         ftlConfigInfo.setPropertyList(GeneratorJointUtil.getPropertyList(tableInfo.getColumnInfos()));
+
         FileUtil.generateToJava(Prop2MapUtil.prop2Map(ftlConfigInfo), Constant.ENTITY);
     }
 }

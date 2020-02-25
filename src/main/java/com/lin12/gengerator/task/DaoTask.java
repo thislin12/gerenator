@@ -25,6 +25,9 @@ public class DaoTask {
         ftlConfigInfo.setClassName(tableInfo.getClassName() + FILE_SUFFIX);
         ftlConfigInfo.setEntityName(tableInfo.getClassName());
         ftlConfigInfo.setPackageName(GeneratorJointUtil.getPackageName(Constant.DAO));
+        ftlConfigInfo.setEntityClassName(StringUtils.firstToUpperCase(tableInfo.getClassName()));
+
+        FreemarkerConfigUtils.setFtlMVCPath(ftlConfigInfo);
         FileUtil.generateToJava(Prop2MapUtil.prop2Map(ftlConfigInfo), Constant.DAO);
     }
 }

@@ -33,6 +33,8 @@ public class ControllerTask {
         ftlConfigInfo.setEntityName(StringUtils.firstToLowerCase(tableInfo.getClassName()));
         ftlConfigInfo.setEntityClassName(StringUtils.firstToUpperCase(tableInfo.getClassName()));
         ftlConfigInfo.setPackageName(GeneratorJointUtil.getPackageName(Constant.CONTROLLER));
+
+        FreemarkerConfigUtils.setFtlMVCPath(ftlConfigInfo);
         FileUtil.generateToJava(Prop2MapUtil.prop2Map(ftlConfigInfo), Constant.CONTROLLER);
     }
 }

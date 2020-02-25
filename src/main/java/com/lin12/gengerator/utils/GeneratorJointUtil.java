@@ -25,9 +25,10 @@ public class GeneratorJointUtil {
         if(path == null){
             return null;
         }
-        if (!"".equals(YmlUtils.generatorConfig(Constant.CREATE_PACKAGE))){
-            String packagePath = (String)YmlUtils.generatorConfig(Constant.CREATE_PACKAGE);
-            path += "." + packagePath.toLowerCase();
+        String unifyPackage = (String)YmlUtils.generatorConfig(Constant.UNIFY_PACKAGE
+        );
+        if (!"".equals(unifyPackage) && unifyPackage != null){
+            path += "." + unifyPackage.toLowerCase();
         }
         return "package " + path + ";";
     }

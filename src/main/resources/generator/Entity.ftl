@@ -1,6 +1,8 @@
 ${packageName}
 
 import lombok.Data;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 
 /**
 * ${remark}
@@ -9,7 +11,6 @@ import lombok.Data;
 */
 @Data
 @TableName(value = "${tableName}")
-@ApiModel(value="${className}", description="${remark}")
 public class ${className} {
 
 ${propertyList}
