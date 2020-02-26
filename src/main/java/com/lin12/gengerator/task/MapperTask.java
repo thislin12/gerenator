@@ -22,7 +22,7 @@ public class MapperTask  {
     public static void getClassConfig(TableInfo tableInfo){
         FtlConfigInfo ftlConfigInfo = new FtlConfigInfo();
         ftlConfigInfo.setClassName(tableInfo.getClassName() + FILE_SUFFIX);
-        ftlConfigInfo.setNamespace(YmlUtils.readGeneratorFilePath(Constant.DAO) + "." + ftlConfigInfo.getClassName() + DaoTask.FILE_SUFFIX);
+        ftlConfigInfo.setNamespace(YmlUtils.readGeneratorFilePath(Constant.DAO) + "." + tableInfo.getClassName() + DaoTask.FILE_SUFFIX);
         FileUtil.generateToJava(Prop2MapUtil.prop2Map(ftlConfigInfo), Constant.MAPPER);
     }
 }
